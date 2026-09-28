@@ -44,10 +44,7 @@
         <div class="sidebar-item active" onclick="switchView('dashboard', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Dashboard<span class="sidebar-chevron">‹</span></div>         
         <div class="sidebar-item" onclick="switchView('dashboard', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Area Scan<span class="sidebar-chevron">‹</span></div>         
         <div class="sidebar-item" onclick="switchView('rekap', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>Rekap Barang<span class="sidebar-chevron">‹</span></div>         
-        
-        <!-- PERUBAHAN NAMA MENU: Laporan -> Analisa Barang -->
         <div class="sidebar-item" onclick="switchView('laporan', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>Analisa Barang<span class="sidebar-chevron">‹</span></div>         
-        
         <div class="sidebar-item" onclick="switchView('dashboard', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15 1.65 1.65 0 003 14.08V14a2 2 0 014 0v.09"/></svg>Pengaturan<span class="sidebar-chevron">‹</span></div>     
     </div>     
     <div class="main">  
@@ -65,6 +62,11 @@
                     <h2>Area Scan</h2>                                 
                     <input type="text" class="scan-input" id="mainInput" placeholder="Arahkan scanner ke sini..." autocomplete="off">                 
                     <div class="scan-status" id="scanStatus">Siap menerima scan...</div> 
+
+                    <div style="margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" id="settingPopupImage" onchange="togglePopupSetting(this.checked)">
+                        <label for="settingPopupImage" style="font-size: 0.82rem; color: #5a6f7d; cursor: pointer; font-weight: 600;">Tampilkan Popup Gambar Barang</label>
+                    </div>
 
                     <div style="margin-top: 16px; padding: 12px; background: #f8fafc; border: 1px solid #dce1e6; border-radius: 8px;">
                         <div style="font-size: 0.82rem; font-weight: 600; color: #5a6f7d; margin-bottom: 8px;">Input Manual</div>
@@ -93,7 +95,6 @@
                     </div>             
                 </div>             
                 
-                <!-- CONTAINER TABEL UNTUK DASHBOARD -->
                 <div id="tableContainer_dashboard">
                     <div class="card" id="theTableCard">                 
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
@@ -137,7 +138,6 @@
             </div>
 
             <div id="rekapGrid">
-                <!-- Horizontal Bar Chart -->
                 <div class="card" style="padding: 15px;">
                     <h3 style="font-size: 0.9rem; margin-bottom: 10px; color: #2c3e50;">Chart for Inward & Dispatch (By Date)</h3>
                     <div style="position: relative; height: 200px; width: 100%;">
@@ -145,7 +145,6 @@
                     </div>
                 </div>
                 
-                <!-- Stats Box -->
                 <div style="display: flex; flex-direction: column; gap: 20px;">
                     <div class="card" style="padding: 15px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; border-top: 4px solid #3498db;">
                         <h3 style="font-size: 0.9rem; color: #5a6f7d; margin-bottom: 10px;">Opening Target</h3>
@@ -157,7 +156,6 @@
                     </div>
                 </div>
 
-                <!-- Pie Chart -->
                 <div class="card" style="padding: 15px;">
                     <h3 style="font-size: 0.9rem; margin-bottom: 10px; color: #2c3e50;">Activity Share (Top Items)</h3>
                     <div style="position: relative; height: 200px; width: 100%;">
@@ -166,7 +164,6 @@
                 </div>
             </div>
 
-            <!-- Bar Chart -->
             <div class="card" style="margin-bottom: 20px; padding: 15px;">
                 <h3 style="font-size: 0.9rem; margin-bottom: 10px; color: #2c3e50;">Product Wise Progress</h3>
                 <div style="position: relative; height: 200px; width: 100%;">
@@ -174,27 +171,35 @@
                 </div>
             </div>
             
-            <!-- CONTAINER TABEL UNTUK REKAP BARANG (Tabel akan pindah ke sini saat menu diklik) -->
             <div id="tableContainer_rekap"></div>
         </div>
         <!-- ================= /CONTAINER HALAMAN REKAP BARANG ================= -->
 
-        <!-- ================= CONTAINER HALAMAN LAPORAN DIAGRAM (ANALISA BARANG) ================= -->
+        <!-- ================= CONTAINER HALAMAN ANALISA BARANG ================= -->
         <div id="laporanView" style="display: none;">
-            <h1 class="section-title">Laporan Data Scan</h1>
+            <h1 class="section-title">Laporan Analisa Barang</h1>
             <div class="card" style="margin-top: 20px;">
                 <h2>Grafik Kuantiti per Barang</h2>
                 <canvas id="rekapChart" height="100"></canvas>
             </div>
         </div>
-        <!-- ================= /CONTAINER HALAMAN LAPORAN DIAGRAM ================= -->
+        <!-- ================= /CONTAINER HALAMAN ANALISA BARANG ================= -->
 
     </div>   
+
+    <!-- MODAL POPUP GAMBAR -->
+    <div id="imageModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: #fff; padding: 24px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+            <h3 id="modalItemTitle" style="margin-bottom: 15px; color: #2c3e50; font-size: 1.2rem;"></h3>
+            <img id="modalItemImage" src="" alt="Gambar Barang" style="max-width: 100%; height: 250px; object-fit: contain; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ecf0f1; background: #f8fafc;">
+            <br>
+            <button class="btn btn-primary" onclick="closeImageModal()" style="width: 100%;">Tutup (Enter/Esc)</button>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>     
     <script>
-        // FITUR TAMBAHAN: FUNGSI PINDAH HALAMAN DINAMIS
         function switchView(viewName, element) {
             document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
             if(element) element.classList.add('active');
@@ -269,7 +274,6 @@
             const qtyData = sortedByQty.map(e => e[1].qty);
             const targetData = sortedByQty.map(e => e[1].target);
 
-            // Chart 3: Product Wise Bar
             const ctxB = document.getElementById('chartBar').getContext('2d');
             if(rekapBarChartInstance) rekapBarChartInstance.destroy();
             rekapBarChartInstance = new Chart(ctxB, {
@@ -284,7 +288,6 @@
                 options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
             });
 
-            // Chart 2: Pie Share (Top 8 Items)
             const ctxP = document.getElementById('chartPie').getContext('2d');
             if(rekapPieChartInstance) rekapPieChartInstance.destroy();
             const pieColors = ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#34495e', '#f1c40f', '#e67e22', '#e74c3c'];
@@ -297,7 +300,6 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
             });
 
-            // Chart 1: Horizontal Bar By Date (Scan vs Manual)
             const dateMap = {};
             const fromVal = document.getElementById('filterFrom')?.value;
             const toVal = document.getElementById('filterTo')?.value;
@@ -311,7 +313,7 @@
                 if(item.scanner === 'MANUAL') dateMap[dStr].manual++;
                 else dateMap[dStr].scan++;
             });
-            const dateLabels = Object.keys(dateMap).slice(-10); // last 10 days
+            const dateLabels = Object.keys(dateMap).slice(-10); 
             const scanByDate = dateLabels.map(d => dateMap[d].scan);
             const manualByDate = dateLabels.map(d => dateMap[d].manual);
 
@@ -340,6 +342,8 @@
         
         let appVersion = parseInt(localStorage.getItem('appVersion') || '1');
         document.getElementById('appVersionDisplay').textContent = `v${appVersion}`;
+
+        let showImagePopup = localStorage.getItem('showImagePopup') === 'true';
 
         function updateSortArrows() {
             document.getElementById('sortArrowKode').textContent = sortField === 'kode' ? (sortDir === 'asc' ? '▲' : '▼') : '⇅';
@@ -377,6 +381,30 @@
                 document.getElementById('lockBtn').textContent = "🔒";
                 renderTable(document.getElementById('searchBox').value);
             }
+        }
+
+        function togglePopupSetting(isChecked) {
+            showImagePopup = isChecked;
+            localStorage.setItem('showImagePopup', isChecked);
+            document.getElementById('mainInput').focus();
+        }
+
+        function openImageModal(kode) {
+            const modal = document.getElementById('imageModal');
+            document.getElementById('modalItemTitle').textContent = "Barang: " + kode;
+            const img = document.getElementById('modalItemImage');
+            
+            img.src = `file:///C:/Test/${kode}.jpg`; 
+            
+            img.onerror = function() {
+                this.src = `https://via.placeholder.com/300x300/e74c3c/ffffff?text=Gambar+Tidak+Ada`;
+            };
+            modal.style.display = 'flex';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.getElementById('mainInput').focus();
         }
 
         function downloadTemplate(){var wb=XLSX.utils.book_new();var data=[["kode","target_qty"],["BRG001",10],["BRG002",5]];var ws=XLSX.utils.aoa_to_sheet(data);XLSX.utils.book_append_sheet(wb,ws,"Template Target");XLSX.writeFile(wb,"template_target_qty.xlsx");}
@@ -441,19 +469,42 @@
         const mainInput = document.getElementById('mainInput');
         mainInput.addEventListener('blur', () => setTimeout(() => { if (document.activeElement.tagName !== 'INPUT' || document.activeElement === mainInput) mainInput.focus(); }, 100));
 
+        window.addEventListener('keydown', function(e) {
+            if (document.getElementById('imageModal').style.display === 'flex') {
+                if (e.key === 'Escape') {
+                    closeImageModal();
+                }
+            }
+        });
+
         let bufferTimeout = null;
         mainInput.addEventListener('input', function(){ clearTimeout(bufferTimeout); bufferTimeout = setTimeout(() => processBuffer(), 50); });
-        mainInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); clearTimeout(bufferTimeout); processBuffer(); } });
+        mainInput.addEventListener('keydown', function(e){ 
+            if (e.key === 'Enter') { 
+                e.preventDefault(); 
+                clearTimeout(bufferTimeout); 
+                
+                if (document.getElementById('imageModal').style.display === 'flex' && mainInput.value.trim() === '') {
+                    closeImageModal();
+                    return;
+                }
+                
+                processBuffer(); 
+            } 
+        });
 
         function processBuffer(){
             const raw = mainInput.value.trim();
             if (!raw) return;
             mainInput.value = '';
 
-            if (raw.length >= 1 && raw.length <= 4) {
-                if (!confirm("Apakah anda yakin memasukan " + raw.length + " digit?")) {
-                    return; 
-                }
+            // FEATURE TAMBAHAN: VALIDASI KODE > 5 KARAKTER
+            if (raw.length <= 5) {
+                alert("Silahkan scan kembali. Kode harus lebih dari 5 karakter.");
+                const status = document.getElementById('scanStatus');
+                status.textContent = 'Silahkan scan kembali...';
+                setTimeout(() => { status.textContent = 'Siap menerima scan...'; }, 2000);
+                return; 
             }
 
             addScan(raw.toUpperCase(), 'S1');
@@ -467,6 +518,10 @@
             const status = document.getElementById('scanStatus');
             status.textContent = `${kode} tercatat!`;
             setTimeout(() => { status.textContent = 'Siap menerima scan...'; }, 2000);
+            
+            if (showImagePopup) {
+                openImageModal(kode);
+            }
         }
 
         function getRecap(filter = '') {
@@ -628,10 +683,10 @@
                 return;
             }
 
-            if (kode.length >= 1 && kode.length <= 4) {
-                if (!confirm("Apakah anda yakin memasukan " + kode.length + " digit?")) {
-                    return; 
-                }
+            // FEATURE TAMBAHAN: VALIDASI KODE > 5 KARAKTER
+            if (kode.length <= 5) {
+                alert("Silahkan scan kembali. Kode harus lebih dari 5 karakter.");
+                return; 
             }
 
             for(let i=0; i<qty; i++) {
@@ -645,6 +700,10 @@
             const status = document.getElementById('scanStatus');
             status.textContent = `${kode} (MANUAL) tercatat!`;
             setTimeout(() => { status.textContent = 'Siap menerima scan...'; }, 2000);
+            
+            if (showImagePopup) {
+                openImageModal(kode);
+            }
             
             document.getElementById('mainInput').focus();
         }
@@ -727,6 +786,7 @@
             }
         }
 
+        document.getElementById('settingPopupImage').checked = showImagePopup;
         updateSortArrows();
         updateUI();
         mainInput.focus();
