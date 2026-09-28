@@ -478,7 +478,8 @@
         });
 
         let bufferTimeout = null;
-        mainInput.addEventListener('input', function(){ clearTimeout(bufferTimeout); bufferTimeout = setTimeout(() => processBuffer(), 50); });
+        // PERUBAHAN WAKTU TUNGGU (BUFFER TIMEOUT) MENJADI 500MS UNTUK SCANNER LAMBAT
+        mainInput.addEventListener('input', function(){ clearTimeout(bufferTimeout); bufferTimeout = setTimeout(() => processBuffer(), 500); });
         mainInput.addEventListener('keydown', function(e){ 
             if (e.key === 'Enter') { 
                 e.preventDefault(); 
@@ -498,12 +499,9 @@
             if (!raw) return;
             mainInput.value = '';
 
-            // FEATURE TAMBAHAN: VALIDASI KODE > 5 KARAKTER
+            // PERUBAHAN BATAS KARAKTER (DIBAWAH 5 LANGSUNG DITOLAK TANPA CONFIRM)
             if (raw.length <= 5) {
-                alert("Silahkan scan kembali. Kode harus lebih dari 5 karakter.");
-                const status = document.getElementById('scanStatus');
-                status.textContent = 'Silahkan scan kembali...';
-                setTimeout(() => { status.textContent = 'Siap menerima scan...'; }, 2000);
+                alert("Silahkan scan kembali");
                 return; 
             }
 
@@ -683,9 +681,9 @@
                 return;
             }
 
-            // FEATURE TAMBAHAN: VALIDASI KODE > 5 KARAKTER
+            // PERUBAHAN BATAS KARAKTER MANUAL INPUT (DIBAWAH 5 LANGSUNG DITOLAK TANPA CONFIRM)
             if (kode.length <= 5) {
-                alert("Silahkan scan kembali. Kode harus lebih dari 5 karakter.");
+                alert("Silahkan scan kembali");
                 return; 
             }
 
